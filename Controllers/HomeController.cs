@@ -30,10 +30,10 @@ namespace StockPriceApp.Controllers
             Stock stock = new Stock
             {
                 Symbol = _tradingOptions.Value.DefaultStockSymbol,
-                CurrentPrice = (double)responseDictionary["c"],
-                LowestPrice = (double)responseDictionary["l"],
-                HighestPrice = (double)responseDictionary["h"],
-                OpenPrice = (double)responseDictionary["o"]
+                CurrentPrice = Convert.ToDouble(responseDictionary["c"].ToString()),
+                LowestPrice = Convert.ToDouble(responseDictionary["l"].ToString()),
+                HighestPrice = Convert.ToDouble(responseDictionary["h"].ToString()),
+                OpenPrice = Convert.ToDouble(responseDictionary["o"].ToString())
             }; 
 
             return View(stock);
