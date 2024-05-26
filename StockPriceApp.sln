@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockApp", "StockApp.csproj", "{0AE5F811-EB56-40EF-927A-717A737666BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockPriceApp", "StockPriceApp.csproj", "{0AE5F811-EB56-40EF-927A-717A737666BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
