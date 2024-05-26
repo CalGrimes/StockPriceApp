@@ -22,6 +22,7 @@ namespace StockPriceApp.Controllers
         {
             if (_tradingOptions.Value.DefaultStockSymbol == null)
             {
+                _tradingOptions.Value.DefaultStockName = "Microsoft Corporation";
                 _tradingOptions.Value.DefaultStockSymbol = "MSFT";
             }
 
@@ -29,6 +30,7 @@ namespace StockPriceApp.Controllers
 
             Stock stock = new Stock
             {
+                StockName = _tradingOptions.Value.DefaultStockName,
                 Symbol = _tradingOptions.Value.DefaultStockSymbol,
                 CurrentPrice = Convert.ToDouble(responseDictionary["c"].ToString()),
                 LowestPrice = Convert.ToDouble(responseDictionary["l"].ToString()),

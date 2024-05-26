@@ -8,9 +8,8 @@
     <div class="flex trading-panel-flex">
 
         <div id="stock-price-panel">
-
             <div class="stock">
-                <h1 class="stock-title">@Model.Symbol</h1>
+                <h1 class="stock-title">@(Model.StockName + " (" + Model.Symbol + ")")</h1>
 
                 <table>
                     <tbody>

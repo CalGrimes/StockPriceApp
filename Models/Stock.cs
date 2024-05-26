@@ -2,6 +2,7 @@
 {
     public class Stock
     {
+        public string? StockName { get; set; }
         public string? Symbol { get; set; }
         public double CurrentPrice { get; set; }
         public double LowestPrice { get; set; }
