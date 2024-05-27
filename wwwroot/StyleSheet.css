@@ -481,6 +481,12 @@ a.link-hover:hover {
     flex-direction: column;
 }
 
+#profile-content {
+    align-self: center;
+    padding-bottom: 20px;
+}
+
+
 
 #stock-price-panel {
     width: 100%;
@@ -536,6 +542,7 @@ a.link-hover:hover {
         padding-top: 20px;
         flex: 1 0 auto;
     }
+
 
     .trading-panel-flex {
         flex-direction: row;

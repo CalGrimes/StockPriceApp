@@ -9,7 +9,9 @@
 
         <div id="stock-price-panel">
             <div class="stock">
-                <h1 class="stock-title">@(Model.StockName + " (" + Model.Symbol + ")")</h1>
+                <a asp-controller="Trade" asp-action="Detail" asp-route-id=@Model.Symbol>
+                    <h1 class="stock-title">@(Model.StockName + " (" + Model.Symbol + ")")</h1>
+                </a>
 
                 <table>
                     <tbody>
