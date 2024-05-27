@@ -1,0 +1,41 @@
+﻿@model StocksApp.Models.StockProfile
+@{
+    ViewBag.Title = "Trade Profile";
+    ViewBag.CurrentUrl = "~/Trade/Detail/";
+}
+<div class="container">
+    <div class="box">
+        <h2>Company Profile</h2>
+    <div class="flex">
+                <div class="profile text-center">
+                    <img src="@Model.Logo" class="w-40" alt="Company Logo" />
+                </div>
+                <div class="profile" id="profile-content">
+                    <p><strong>Country:</strong> @Model.Country</p>
+                    <p><strong>Currency:</strong> @Model.Currency</p>
+                    <p><strong>Exchange:</strong> @Model.Exchange</p>
+                    <p><strong>Finnhub Industry:</strong> @Model.FinnhubIndustry</p>
+                    <p><strong>IPO:</strong> @Model.Ipo</p>
+                    <p><strong>Market Capitalization:</strong> @Model.MarketCapitalization</p>
+                    <p><strong>Phone:</strong> @Model.Phone</p>
+                    <p><strong>Share Outstanding:</strong> @Model.ShareOutstanding</p>
+                    <p><strong>Web URL:</strong> <a href="@Model.Weburl" target="_blank">@Model.Weburl</a></p>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+
+  @*      public string? Country { get; set; }
+        public string? Currency { get; set; }
+        public string? Exchange { get; set; }
+        public string? FinnhubIndustry { get; set; }
+        public string? Ipo { get; set; }
+        public string? Logo { get; set; }
+        public string? MarketCapitalization { get; set; }
+        public string? Name { get; set; }
+        public string? Phone { get; set; }
+        public string? ShareOutstanding { get; set; }
+        public string? Ticker { get; set; }
+        public string? Weburl { get; set; }*@
