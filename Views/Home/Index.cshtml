@@ -8,7 +8,6 @@
     <div class="flex trading-panel-flex">
 
         <div id="stock-price-panel">
-            <div class="stock">
                 <a asp-controller="Trade" asp-action="Detail" asp-route-id=@Model.Symbol>
                     <h1 class="stock-title">@(Model.StockName + " (" + Model.Symbol + ")")</h1>
                 </a>
@@ -36,8 +35,8 @@
                         </tr>
                     </tbody>
                 </table>
+                <a asp-controller="Trade" asp-action=@Model.Symbol asp-route-id="trading">Trade</a>
             </div>
 
         </div>
     </div>
-</div>

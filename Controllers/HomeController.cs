@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StockPriceApp.Models;
-using StockPriceApp.Services;
+using StockPriceApp.ServiceContracts;
 
 namespace StockPriceApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly FinnhubService _finnhubService;
+        private readonly IFinnhubService _finnhubService;
         private readonly IOptions<TradingOptions> _tradingOptions;
 
-        public HomeController(FinnhubService finnhubService, IOptions<TradingOptions> tradingOptions)
+        public HomeController(IFinnhubService finnhubService, IOptions<TradingOptions> tradingOptions)
         {
             _finnhubService = finnhubService;
             _tradingOptions = tradingOptions;
@@ -18,6 +18,8 @@ namespace StockPriceApp.Controllers
 
         [HttpGet]
         [Route("/")]
+        [Route("[action]")]
+        [Route("~/[controller]")]
         public async Task<IActionResult> Index()
         {
             if (_tradingOptions.Value.DefaultStockSymbol == null)

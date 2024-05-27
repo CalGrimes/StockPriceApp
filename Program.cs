@@ -1,12 +1,13 @@
 using StockPriceApp;
+using StockPriceApp.ServiceContracts;
 using StockPriceApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddHttpClient();
-builder.Services.AddScoped<FinnhubService>();
+builder.Services.AddSingleton<IFinnhubService, FinnhubService>();
 builder.Services.Configure<TradingOptions>(builder.Configuration.GetSection(nameof(TradingOptions)));
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
@@ -21,5 +22,6 @@ app.MapControllerRoute(
             pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllers();
+app.UseWebSockets();
 
 app.Run();
