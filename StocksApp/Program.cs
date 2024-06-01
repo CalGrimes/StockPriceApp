@@ -1,13 +1,14 @@
 using Entities;
 using StocksApp;
-using StocksApp.ServiceContracts;
-using StocksApp.Services;
 using Microsoft.EntityFrameworkCore;
+using ServiceContracts;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IFinnhubService, FinnhubService>();
+builder.Services.AddSingleton<IStocksService, StocksService>();
 builder.Services.Configure<TradingOptions>(builder.Configuration.GetSection(nameof(TradingOptions)));
 
 builder.Services.AddDbContext<OrdersDbContext>(options => {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
-using StocksApp.ServiceContracts;
+using ServiceContracts;
 using System.Net.Http;
 using System.Text.Json;
 
-namespace StocksApp.Services
+namespace Services
 {
     public class FinnhubService : IFinnhubService
     {

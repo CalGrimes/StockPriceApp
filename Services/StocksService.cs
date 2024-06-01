@@ -23,7 +23,7 @@ namespace Services
             _sellOrders = new List<SellOrder>();
         }
 
-        public BuyOrderResponse CreateBuyOrder(BuyOrderRequest? buyOrderRequest)
+        public Task<BuyOrderResponse> CreateBuyOrder(BuyOrderRequest? buyOrderRequest)
         {
             // Validation: buyOrderRequest should not be null
             if (buyOrderRequest == null)
@@ -44,10 +44,10 @@ namespace Services
             _buyOrders.Add(buyOrder);
 
             // convert the buyOrder object to BuyOrderResponse object
-            return buyOrder.ToBuyOrderResponse();
+            return Task.FromResult(buyOrder.ToBuyOrderResponse());
         }
 
-        public SellOrderResponse CreateSellOrder(SellOrderRequest? sellOrderRequest)
+        public Task<SellOrderResponse> CreateSellOrder(SellOrderRequest? sellOrderRequest)
         {
             // Validation: sellOrderRequest should not be null
             if (sellOrderRequest == null)
@@ -68,22 +68,22 @@ namespace Services
             _sellOrders.Add(sellOrder);
 
             // convert the sellOrder object to SellOrderResponse object
-            return sellOrder.ToSellOrderResponse();
+            return Task.FromResult(sellOrder.ToSellOrderResponse());
         }
 
-        public List<BuyOrderResponse> GetBuyOrders()
+        public Task<List<BuyOrderResponse>> GetBuyOrders()
         {
             //Convert all BuyOrder objects into BuyOrderResponse objects
-            return _buyOrders
-             .OrderByDescending(temp => temp.DateAndTimeOfOrder)
-             .Select(temp => temp.ToBuyOrderResponse()).ToList();
+            return Task.FromResult(_buyOrders
+                    .OrderByDescending(temp => temp.DateAndTimeOfOrder)
+                    .Select(temp => temp.ToBuyOrderResponse()).ToList());
         }
 
-        public List<SellOrderResponse> GetSellOrders()
+        public Task<List<SellOrderResponse>> GetSellOrders()
         {
-            return _sellOrders
-             .OrderByDescending(temp => temp.DateAndTimeOfOrder)
-             .Select(temp => temp.ToSellOrderResponse()).ToList();
+            return Task.FromResult(_sellOrders
+                    .OrderByDescending(temp => temp.DateAndTimeOfOrder)
+                    .Select(temp => temp.ToSellOrderResponse()).ToList());
         }
     }
 }

@@ -5,6 +5,12 @@
     ViewBag.CurrentUrl = "~/Trade/Index";
 }
 
+@{
+    if(ViewBag.Response != null)
+    {
+        <h3>Success</h3>
+    }
+}
 
 <form method="post">
     <div class="box trading-panel">
@@ -19,6 +25,11 @@
 
                 <div class="date"></div>
             </div>
+
+            <button type="submit" asp-action="Buy"
+                class="button button-blue-back">Buy</button>
+            <button type="submit" asp-action="Sell"
+                class="button button-red-back">Sell</button>
 
 
         </div>

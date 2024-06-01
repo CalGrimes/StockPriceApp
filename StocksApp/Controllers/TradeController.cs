@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using ServiceContracts;
+using ServiceContracts.DTO;
 using StocksApp.Models;
-using StocksApp.ServiceContracts;
+using ServiceContracts;
 
 namespace StocksApp.Controllers
 {
@@ -10,6 +12,7 @@ namespace StocksApp.Controllers
         private readonly IFinnhubService _finnhubService;
         private readonly IOptions<TradingOptions> _tradingOptions;
         private readonly IConfiguration _configuration;
+        private readonly IStocksService _stocksService;
 
         /// <summary>
         /// Constructor for TradeController that executes when a new object is created for the class
@@ -18,11 +21,12 @@ namespace StocksApp.Controllers
         /// <param name="stocksService">Injecting StocksService</param>
         /// <param name="finnhubService">Injecting FinnhubService</param>
         /// <param name="configuration">Injecting IConfiguration</param>
-        public TradeController(IFinnhubService finnhubService, IOptions<TradingOptions> tradingOptions, IConfiguration configuration)
+        public TradeController(IFinnhubService finnhubService, IOptions<TradingOptions> tradingOptions, IConfiguration configuration, IStocksService stocksService)
         {
             _finnhubService = finnhubService;
             _tradingOptions = tradingOptions;
             _configuration = configuration;
+            _stocksService = stocksService;
         }
 
         [HttpGet]
@@ -66,7 +70,12 @@ namespace StocksApp.Controllers
 
 
             //create model object
-            StockTrade stockTrade = new StockTrade() { StockSymbol = _tradingOptions.Value.DefaultStockSymbol };
+            StockTrade stockTrade = new StockTrade() { 
+                StockSymbol = _tradingOptions.Value.DefaultStockSymbol,
+                StockName = companyProfileDictionary != null ? Convert.ToString(companyProfileDictionary["name"]) : "",
+                Price = stockQuoteDictionary != null ? Convert.ToDouble(stockQuoteDictionary["c"].ToString()) : 0,
+                Quantity = 1
+            };
 
             //load data from finnHubService into model object
             if (companyProfileDictionary != null && stockQuoteDictionary != null)
@@ -79,5 +88,46 @@ namespace StocksApp.Controllers
 
             return View(stockTrade);
         }
+
+        [HttpPost]
+        [Route("/[controller]/buy")]
+        public async Task<IActionResult> Buy(string symbol, StockTrade stockTrade)
+        {
+            if (string.IsNullOrEmpty(symbol))
+            {
+                symbol = _tradingOptions.Value.DefaultStockSymbol;
+            }
+
+            // to buy order request
+            BuyOrderRequest buyOrderRequest = new BuyOrderRequest
+            {
+                StockSymbol = symbol,
+                StockName = stockTrade.StockName,
+                DateAndTimeOfOrder = DateTime.Now,
+                Price = stockTrade.Price,
+                Quantity = stockTrade.Quantity
+            };
+
+            //validate the model
+            if (!ModelState.IsValid)
+            {
+                return View("Index", stockTrade);
+            }
+
+            //send buy order request to service
+            BuyOrderResponse buyOrderResponse = await _stocksService.CreateBuyOrder(buyOrderRequest);
+
+            if (buyOrderResponse == null)
+            {
+                return View("Error");
+            }
+
+            ViewBag.Response = buyOrderResponse;
+            return RedirectToAction("Index", symbol);
+
+
+
+        }
+
     }
 }

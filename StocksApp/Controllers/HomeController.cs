@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StocksApp.Models;
-using StocksApp.ServiceContracts;
+using ServiceContracts;
 
 namespace StocksApp.Controllers
 {
